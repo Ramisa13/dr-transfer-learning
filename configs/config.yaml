@@ -1,0 +1,37 @@
+# Central configuration for all tasks.
+# Override any field from the command line, e.g. --learning_rate 0.0005
+
+data:
+  data_root: "data/"
+  train_csv: "train.csv"
+  val_csv: "val.csv"
+  test_csv: "test.csv"
+  image_size: 224
+  dual_image: false          # set true for paired left/right or two-field inputs
+
+training:
+  batch_size: 32
+  num_classes: 5
+  learning_rate: 0.0001
+  num_epochs: 20
+  optimizer: "adam"
+  weight_decay: 0.00001
+  lr_scheduler: "cosine"     # options: cosine, step, none
+  early_stopping_patience: 5
+  seed: 42
+
+model:
+  backbone: "resnet18"        # resnet18, resnet50
+  pretrained: true
+  freeze_backbone: false
+  use_attention: false
+  attention_dim: 512
+
+ensemble:
+  method: "max_voting"        # max_voting, weighted_average, stacking, bagging, boosting
+  preprocessing: "clahe"      # none, clahe, ben_graham, circular_crop, gaussian_blur, sharpen
+
+paths:
+  checkpoint_dir: "ckpts/"
+  output_dir: "outputs/"
+  gradcam_dir: "assets/gradcam/"
